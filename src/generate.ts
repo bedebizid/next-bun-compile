@@ -383,10 +383,16 @@ export function generateEntryPoint(options: GenerateOptions): string {
 
   // Check build context for assetPrefix — if set, static assets are served
   // from a CDN and don't need to be embedded in the binary.
-  const ctx = JSON.parse(
-    readFileSync(join(distDir, "bun-compile-ctx.json"), "utf-8")
-  );
+  
+  // const ctx = JSON.parse(
+  //   readFileSync(join(distDir, "bun-compile-ctx.json"), "utf-8")
+  // );
+  // const { assetPrefix } = ctx;
+
+  const ctxPath = join(distDir, "bun-compile-ctx.json");
+  const ctx = existsSync(ctxPath) ? JSON.parse(readFileSync(ctxPath, "utf-8")) : { assetPrefix: "" };
   const { assetPrefix } = ctx;
+  
 
   const assetsToEmbed = assetPrefix
     ? [...publicFiles, ...runtimeFiles]
