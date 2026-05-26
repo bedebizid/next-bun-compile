@@ -434,9 +434,15 @@ export function generateEntryPoint(options: GenerateOptions): string {
     join(serverDir, "server.js"),
     "utf-8"
   );
-  const configMatch = standaloneServerSrc.match(
+  // const configMatch = standaloneServerSrc.match(
+  //   /const nextConfig = ({[\s\S]*?})\n/
+  // );
+
+  let configMatch = standaloneServerSrc.match(
     /const nextConfig = ({[\s\S]*?})\n/
   );
+
+  
   if (!configMatch) {
     throw new Error(
       "next-bun-compile: Could not extract nextConfig from standalone server.js"
