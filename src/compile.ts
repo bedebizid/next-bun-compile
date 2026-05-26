@@ -31,6 +31,16 @@ export function compile(options: CompileOptions): void {
   ];
 
   console.log(`next-bun-compile: Compiling to ${outfile}...`);
+  // execFileSync("bun", args, { stdio: "inherit" });
+
+  try {
   execFileSync("bun", args, { stdio: "inherit" });
+  console.log(`next-bun-compile: Done → ${outfile}`);
+  } catch (error) {
+      console.error("next-bun-compile: Compilation failed");
+      process.exit(1);
+  }
+
+  
   console.log(`next-bun-compile: Done → ${outfile}`);
 }
